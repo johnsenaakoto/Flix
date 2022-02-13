@@ -1,22 +1,36 @@
 package com.example.flix.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flix.DetailActivity;
+import com.example.flix.MainActivity;
 import com.example.flix.R;
+import com.example.flix.databinding.ActivityMainBinding;
 import com.example.flix.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+// Movie adaptor holds the movie in the apart. It connects the data to the xml file
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     Context context; // we need a context
@@ -66,6 +80,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        ImageView previewButton;
+        RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +90,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            previewButton = itemView.findViewById(R.id.previewButton);
+            container = itemView.findViewById(R.id.container);
         }
 
         public void bind(Movie movie) {
@@ -88,7 +106,31 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 imageUrl = movie.getPosterPath();
             }
 
-            Glide.with(context).load(imageUrl).into(ivPoster); // Binding an image is more complex, we use Glide
+            // add rounded corners to images
+            int radius = 30; // corner radius, higher value = more rounded
+            int margin = 10; // crop margin, set to 0 for corners with no crop
+            Glide.with(context).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster); // Binding an image is more complex, we use Glide
+
+            // delete previewButton for less popular movies
+            if(movie.getRating() > 4.99){
+                previewButton.setVisibility(View.VISIBLE);
+            }
+
+
+            // Create an onClickListener on the tvTitle so that stuff can be done when it's clicked
+                // 1. Register click listener on the whole row
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 2. Navigate to a new activity on tap
+                    // Creating an intent to navigate to activity_detail.xml
+                    Intent i = new Intent(context, DetailActivity.class);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) context, ivPoster, "activityTransition");
+                    i.putExtra("movie", Parcels.wrap(movie)); // send entire movie class using Parcels to DetailActivity
+                    context.startActivity(i, options.toBundle());
+                }
+            });
         }
     }
 }

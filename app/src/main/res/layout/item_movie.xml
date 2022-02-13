@@ -2,11 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+
     <ImageView
         android:id="@+id/ivPoster"
+        android:transitionName="activityTransition"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -14,6 +17,21 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+
+    <ImageView
+        android:id="@+id/previewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:alpha="0.75"
+        android:paddingBottom="10dp"
+        android:src="@drawable/ic_play_foreground"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -40,10 +58,10 @@
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivPoster"
         android:background="@color/dark1"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/light2"
-        android:maxLines="6"
         android:ellipsize="end"
+        android:fontFamily="@font/montserrat"
+        android:maxLines="6"
+        android:textColor="@color/light2"
         android:textSize="14sp"
         tools:text="Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man." />
 </RelativeLayout>

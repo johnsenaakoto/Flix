@@ -1,6 +1,7 @@
 package com.example.flix;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.util.Log;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flix.adapters.MovieAdapter;
+import com.example.flix.databinding.ActivityMainBinding;
 import com.example.flix.models.Movie;
 
 import org.json.JSONArray;
@@ -22,6 +24,7 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
 
     // Create string to hold http for API request
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
@@ -33,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // Define recycler view
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+        RecyclerView rvMovies = binding.rvMovies;
 
         // Define base movies for recycler
         movies = new ArrayList<>();
@@ -74,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
+                Log.d(TAG, "Failure: " + response);
+                Log.d(TAG, response);
+                System.out.println(response);
 
             }
         });

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -13,7 +14,26 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:transitionName="activityTransition"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/previewButton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ivPoster"
+        android:layout_alignBottom="@+id/ivPoster"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="-29dp"
+        android:alpha="0.75"
+        android:paddingBottom="10dp"
+        android:src="@drawable/ic_play_foreground"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tvTitle"

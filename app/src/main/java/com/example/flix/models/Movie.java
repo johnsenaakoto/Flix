@@ -3,24 +3,33 @@ package com.example.flix.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // Encapsulates what makes up a movie in the app
+@Parcel // To make it parceable
 public class Movie {
 
+    int movieID;
     String posterPath;
     String backdropPath;
     String title;
     String overview;
+    String rating;
+
+    // empty constructor needed by Parcelor Library
+    public Movie(){}
 
     // create the class constructor. It takes in a jsonObject and fills in the attributes of the class
     public Movie(JSONObject jsonObject) throws JSONException {
+        movieID = jsonObject.getInt("id");
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         backdropPath = jsonObject.getString("backdrop_path");
+        rating = jsonObject.getString("vote_average");
     }
 
     // create a method (fromJsonArray) that iterates through the input JSONArray movieJsonArray
@@ -40,6 +49,9 @@ public class Movie {
     }
 
     // getters to extract posterPath, title, and overview from Movie objects
+
+    public int getMovieID() { return movieID; }
+
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
@@ -55,4 +67,6 @@ public class Movie {
     public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
+
+    public float getRating() { return Float.parseFloat(rating); }
 }

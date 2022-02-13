@@ -1,20 +1,25 @@
-# Project 2 - *Flix*
+# Project 2 Unit 2 - *Flix*
 
 **Flix** is an android app that shows the top 20 movies playing from TMDB
 Submitted by: **John Sena Akoto**
 
-Time spent: **3** hours spent in total
+Time spent: **5** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-* [x] App can **request and parse movie data from TMDB API**
-* [x] User can **display a RecyclerView of the top 20 movies**
+* [x] App can **expose details of movie (ratings, synopsis) in a separate activity**
+* [x] User can **play trailer of movie in a YouTubePlayerView**
 
 The following **optional** features are implemented:
 
-* [x] User can **switch between portrait and landscape orientation**
+* [x] App has **shared element transition**
+* [x] Trailers for popular (5+stars) movies **play automatically when movie is selected**
+* [x] App has **play icon overlay on popular movies**
+* [x] App has **data binding for MainActivity and DetailActivity**
+* [x] Images in app have **rounded corners**
+
 
 The following **additional** features are implemented:
 
@@ -33,6 +38,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 I had to clean project everytime before running AVD
+I had to cold boot the AVD sometimes when API calls were failing
+I could not use data binding on RecyclerView and MovieAdaptor
 
 ## License
 
